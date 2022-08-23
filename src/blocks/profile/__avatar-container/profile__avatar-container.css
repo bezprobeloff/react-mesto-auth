@@ -1,0 +1,17 @@
+.profile__avatar-container {
+  display: flex;
+  position: relative;
+}
+
+.profile__avatar-container:hover::after {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  content: '';
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.8);
+  background-image: url(../../../images/vector.svg);
+  background-repeat: no-repeat;
+  background-size: 26px;
+  background-position: center;
+}

@@ -1,0 +1,18 @@
+.card__button-remove {
+  width: 18px;
+  height: 19px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  border: 0;
+  background-color: transparent;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url(../../../images/icon-basket.svg);
+  cursor: pointer;
+  transition: opacity .6s;
+}
+
+.card__button-remove:hover {
+  opacity: .6;
+}
