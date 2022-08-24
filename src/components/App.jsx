@@ -11,6 +11,7 @@ import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ConfirmPopup from './ConfirmPopup';
 import Login from './Login';
+import Register from './Register';
 
 const App = () => {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -146,6 +147,9 @@ const App = () => {
       <CurrentUserContext.Provider value={currentUser}>
         <Switch>
           <Route exact path='/'>
+            <Register />
+          </Route>
+          <Route exact path='/sign-in'>
             <Login />
           </Route>
           <Route path='/main'>
