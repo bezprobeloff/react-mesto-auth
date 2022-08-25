@@ -12,6 +12,7 @@ import AddPlacePopup from './AddPlacePopup';
 import ConfirmPopup from './ConfirmPopup';
 import Login from './Login';
 import Register from './Register';
+import InfoTooltip from './InfoTooltip';
 
 const App = () => {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -19,6 +20,7 @@ const App = () => {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [cards, setCards] = useState([]);
   const [currentUser, setCurrentUser] = useState({
@@ -34,6 +36,8 @@ const App = () => {
         setCards(dataCards);
       })
       .catch((err) => console.log(err));
+
+    setIsInfoTooltipOpen(true);
   }, []);
 
   const setHandleEscClosePopup = () => {
@@ -138,6 +142,7 @@ const App = () => {
     setIsAddPlacePopupOpen(false);
     setIsConfirmPopupOpen(false);
     setIsImagePopupOpen(false);
+    setIsInfoTooltipOpen(false);
     removeHandleEscClosePopup();
   };
 
@@ -147,12 +152,6 @@ const App = () => {
       <CurrentUserContext.Provider value={currentUser}>
         <Switch>
           <Route exact path='/'>
-            <Register />
-          </Route>
-          <Route exact path='/sign-in'>
-            <Login />
-          </Route>
-          <Route path='/main'>
             <Main
               cards={cards}
               onEditProfile={handleEditProfileClick}
@@ -163,8 +162,15 @@ const App = () => {
               onCardDelete={handleDeleteCardClick}
             />
           </Route>
+          <Route path='/sign-up'>
+            <Register />
+          </Route>
+          <Route path='/sign-in'>
+            <Login />
+          </Route>
         </Switch>
         <Footer />
+        <InfoTooltip isOpen={isInfoTooltipOpen} onClose={closeAllPopups} />
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onUpdateUser={handleUpdateUser}
