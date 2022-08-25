@@ -1,22 +1,21 @@
-.auth__title {
+.popup__message {
+  max-width: 100%;
   margin: 0;
-  padding: 40px 0 33px;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: center;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 900;
   font-size: 20px;
   line-height: 1.2;
-  text-align: center;
-  color: #FFFFFF;
-  box-sizing: border-box;
+  color: #000000;
   text-overflow: ellipsis;
   overflow: hidden;
 }
 
 @media screen and (min-width: 768px) {
-  .auth__title {
-    padding: 60px 0 43px;
+  .popup__message {
     font-size: 24px;
-  line-height: 1.21;
   }
 }
