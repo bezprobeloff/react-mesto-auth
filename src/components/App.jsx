@@ -5,6 +5,7 @@ import Footer from './Footer';
 import Main from './Main';
 import ImagePopup from './ImagePopup';
 import { api } from '../utils/api';
+import * as mestoAuth from '../utils/mestoAuth';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
@@ -23,6 +24,7 @@ const App = () => {
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [cards, setCards] = useState([]);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({
     name: 'user',
     about: 'about',
@@ -37,8 +39,25 @@ const App = () => {
       })
       .catch((err) => console.log(err));
 
-    setIsInfoTooltipOpen(true);
+    onLogin({ email: 'bez@bez.ru', password: '123' });
   }, []);
+
+  useEffect(() => {}, [loggedIn]);
+
+  /*
+  const onRegister = ({ email, password }) => {
+    return mestoAuth
+      .register({ email, password })
+      .then((res) => console.log(res));
+  };
+  */
+
+  const onLogin = ({ email, password }) => {
+    return mestoAuth.authorize({ email, password }).then((data) => {
+      setLoggedIn(true);
+      localStorage.setItem('token', data.token);
+    });
+  };
 
   const setHandleEscClosePopup = () => {
     document.addEventListener('keydown', handleEscClosePopup);
