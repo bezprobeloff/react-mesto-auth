@@ -14,6 +14,7 @@ import ConfirmPopup from './ConfirmPopup';
 import Login from './Login';
 import Register from './Register';
 import InfoTooltip from './InfoTooltip';
+import ProtectedRoute from './ProtectedRoute';
 
 const App = () => {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -38,19 +39,15 @@ const App = () => {
         setCards(dataCards);
       })
       .catch((err) => console.log(err));
-
-    onLogin({ email: 'bez@bez.ru', password: '123' });
   }, []);
 
   useEffect(() => {}, [loggedIn]);
 
-  /*
   const onRegister = ({ email, password }) => {
     return mestoAuth
       .register({ email, password })
       .then((res) => console.log(res));
   };
-  */
 
   const onLogin = ({ email, password }) => {
     return mestoAuth.authorize({ email, password }).then((data) => {
@@ -170,22 +167,24 @@ const App = () => {
       <Header />
       <CurrentUserContext.Provider value={currentUser}>
         <Switch>
-          <Route exact path='/'>
-            <Main
-              cards={cards}
-              onEditProfile={handleEditProfileClick}
-              onAddPlace={handleAddPlaceClick}
-              onEditAvatar={handleEditAvatarClick}
-              onCardClick={handleCardClick}
-              onCardLike={handleCardLike}
-              onCardDelete={handleDeleteCardClick}
-            />
-          </Route>
+          <ProtectedRoute
+            exact
+            path='/'
+            component={Main}
+            loggedIn={loggedIn}
+            cards={cards}
+            onEditProfile={handleEditProfileClick}
+            onAddPlace={handleAddPlaceClick}
+            onEditAvatar={handleEditAvatarClick}
+            onCardClick={handleCardClick}
+            onCardLike={handleCardLike}
+            onCardDelete={handleDeleteCardClick}
+          ></ProtectedRoute>
           <Route path='/sign-up'>
-            <Register />
+            <Register onRegister={onRegister} />
           </Route>
           <Route path='/sign-in'>
-            <Login />
+            <Login onLogin={onLogin} />
           </Route>
         </Switch>
         <Footer />
