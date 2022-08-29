@@ -26,13 +26,13 @@ const App = () => {
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [cards, setCards] = useState([]);
-  const [loggedIn, setLoggedIn] = useState(false);
   const [userData, setUserData] = useState({ email: '' });
   const history = useHistory();
   const [currentUser, setCurrentUser] = useState({
     name: 'user',
     about: 'about',
     avatar: '',
+    isLoggedIn: false,
   });
 
   useEffect(() => {
@@ -49,13 +49,13 @@ const App = () => {
     if (token) {
       auth(token);
     }
-  }, [loggedIn]);
+  }, [currentUser.isLoggedIn]);
 
   useEffect(() => {
-    if (loggedIn) {
+    if (currentUser.isLoggedIn) {
       history.push('/');
     }
-  }, [history, loggedIn]);
+  }, [history, currentUser.isLoggedIn]);
 
   const onRegister = ({ email, password }) => {
     return mestoAuth
@@ -65,7 +65,7 @@ const App = () => {
 
   const onLogin = ({ email, password }) => {
     return mestoAuth.authorize({ email, password }).then((data) => {
-      setLoggedIn(true);
+      setCurrentUser({ ...currentUser, isLoggedIn: true });
       localStorage.setItem('token', data.token);
     });
   };
@@ -74,7 +74,7 @@ const App = () => {
   const auth = async (token) => {
     mestoAuth.getContent(token).then((res) => {
       if (res) {
-        setLoggedIn(true);
+        setCurrentUser({ ...currentUser, isLoggedIn: true });
         setUserData({
           email: res.email,
         });
@@ -197,7 +197,7 @@ const App = () => {
             exact
             path='/'
             component={Main}
-            isLoggedIn={loggedIn}
+            isLoggedIn={currentUser.isLoggedIn}
             cards={cards}
             onEditProfile={handleEditProfileClick}
             onAddPlace={handleAddPlaceClick}
