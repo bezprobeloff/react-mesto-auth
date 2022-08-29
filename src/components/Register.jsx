@@ -1,14 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Register = () => {
+const Register = ({ onRegister }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const onChange = (evt) => {
+    switch (evt.target.name) {
+      case 'email':
+        setEmail(evt.target.value);
+        break;
+      case 'password':
+        setPassword(evt.target.value);
+        break;
+    }
+  };
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    if (!email || !password) {
+      return;
+    }
+
+    onRegister({ email, password }).then(() => {
+      //history.push('./');
+    });
+  };
   return (
     <main className='content'>
       <section className='auth'>
-        <form action='' className='auth__form'>
+        <form onSubmit={handleSubmit} className='auth__form'>
           <h1 className='auth__title'>Регистрация</h1>
-          <input type='email' className='auth__input' placeholder='Email' />
-          <input type='password' className='auth__input' placeholder='Пароль' />
+          <input
+            value={email}
+            onChange={onChange}
+            name='email'
+            type='email'
+            className='auth__input'
+            placeholder='Email'
+          />
+          <input
+            value={password}
+            onChange={onChange}
+            name='password'
+            type='password'
+            className='auth__input'
+            placeholder='Пароль'
+          />
           <button type='submit' className='auth__button-submit'>
             Зарегистрироваться
           </button>

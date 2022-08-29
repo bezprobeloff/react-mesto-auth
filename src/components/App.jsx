@@ -15,6 +15,7 @@ import Login from './Login';
 import Register from './Register';
 import InfoTooltip from './InfoTooltip';
 import ProtectedRoute from './ProtectedRoute';
+import { useHistory } from 'react-router-dom';
 
 const App = () => {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -26,6 +27,8 @@ const App = () => {
   const [selectedCard, setSelectedCard] = useState({});
   const [cards, setCards] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [userData, setUserData] = useState({ email: '' });
+  const history = useHistory();
   const [currentUser, setCurrentUser] = useState({
     name: 'user',
     about: 'about',
@@ -41,7 +44,18 @@ const App = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  useEffect(() => {}, [loggedIn]);
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      auth(token);
+    }
+  }, [loggedIn]);
+
+  useEffect(() => {
+    if (loggedIn) {
+      history.push('/');
+    }
+  }, [history, loggedIn]);
 
   const onRegister = ({ email, password }) => {
     return mestoAuth
@@ -53,6 +67,18 @@ const App = () => {
     return mestoAuth.authorize({ email, password }).then((data) => {
       setLoggedIn(true);
       localStorage.setItem('token', data.token);
+    });
+  };
+
+  // проверяем наличие токена, если все хорошо сразу логинимся
+  const auth = async (token) => {
+    mestoAuth.getContent(token).then((res) => {
+      if (res) {
+        setLoggedIn(true);
+        setUserData({
+          email: res.email,
+        });
+      }
     });
   };
 
@@ -164,7 +190,7 @@ const App = () => {
 
   return (
     <div className='page__content'>
-      <Header />
+      <Header userData={userData} />
       <CurrentUserContext.Provider value={currentUser}>
         <Switch>
           <ProtectedRoute
