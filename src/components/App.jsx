@@ -190,14 +190,14 @@ const App = () => {
 
   return (
     <div className='page__content'>
-      <Header userData={userData} />
       <CurrentUserContext.Provider value={currentUser}>
+        <Header userData={userData} />
         <Switch>
           <ProtectedRoute
             exact
             path='/'
             component={Main}
-            loggedIn={loggedIn}
+            isLoggedIn={loggedIn}
             cards={cards}
             onEditProfile={handleEditProfileClick}
             onAddPlace={handleAddPlaceClick}

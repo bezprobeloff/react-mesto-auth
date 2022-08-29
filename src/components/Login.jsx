@@ -21,15 +21,13 @@ const Login = ({ onLogin }) => {
       return;
     }
 
-    onLogin({ email, password }).then(() => {
-      //history.push('./');
-    });
+    onLogin({ email, password }).then(() => {});
   };
 
   return (
     <main className='content'>
       <section className='auth'>
-        <form className='auth__form'>
+        <form onSubmit={handleSubmit} className='auth__form'>
           <h1 className='auth__title'>Вход</h1>
           <input
             type='email'
@@ -47,11 +45,7 @@ const Login = ({ onLogin }) => {
             className='auth__input'
             placeholder='Пароль'
           />
-          <button
-            onSubmit={handleSubmit}
-            type='submit'
-            className='auth__button-submit'
-          >
+          <button type='submit' className='auth__button-submit'>
             Войти
           </button>
         </form>
