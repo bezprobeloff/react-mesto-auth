@@ -26,13 +26,13 @@ const App = () => {
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [cards, setCards] = useState([]);
-  const [userData, setUserData] = useState({ email: '' });
   const history = useHistory();
   const [currentUser, setCurrentUser] = useState({
     name: 'user',
     about: 'about',
     avatar: '',
     isLoggedIn: false,
+    userEmail: '',
   });
 
   useEffect(() => {
@@ -74,9 +74,10 @@ const App = () => {
   const auth = async (token) => {
     mestoAuth.getContent(token).then((res) => {
       if (res) {
-        setCurrentUser({ ...currentUser, isLoggedIn: true });
-        setUserData({
-          email: res.email,
+        setCurrentUser({
+          ...currentUser,
+          isLoggedIn: true,
+          userEmail: res.email,
         });
       }
     });
@@ -191,7 +192,7 @@ const App = () => {
   return (
     <div className='page__content'>
       <CurrentUserContext.Provider value={currentUser}>
-        <Header userData={userData} />
+        <Header />
         <Switch>
           <ProtectedRoute
             exact
