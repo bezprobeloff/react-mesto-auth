@@ -1,0 +1,11 @@
+@media screen and (max-width: 1023px) {
+  .header__auth_type_burger {
+    width: 100%;
+    padding: 40px 0;
+    order: -1;
+    grid-column: 1 / 3;
+    row-gap: 18px;
+    justify-content: center;
+    border-bottom: 1px solid rgba(84, 84, 84, .7);
+  }
+}

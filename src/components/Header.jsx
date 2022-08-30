@@ -17,8 +17,11 @@ const Header = () => {
       <a href='./index.html' className='header__link'>
         <img src={logo} className='header__logo' alt='Лого Mesto' />
       </a>
-      <p>{link.text}</p>
-      <button disabled={link.isExit}>Выйти</button>
+      <div className='header__auth header__auth_type_burger'>
+        <p className='header__auth-email'>{link.text}</p>
+        <a className='header__auth-link'>Выйти</a>
+      </div>
+      <button style={{ display: 'none' }}>XX</button>
     </header>
   );
 };

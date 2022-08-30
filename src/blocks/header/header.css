@@ -1,13 +1,13 @@
 .header {
   width: 100%;
-  display: flex;
-  justify-content: flex-start;
+  padding: 0;
   box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
 
 @media screen and (min-width: 320px) {
   .header {
-    padding: 28px 27px 31px;
     border-bottom: 1px solid rgba(84, 84, 84, .7);
   }
 }
@@ -15,6 +15,5 @@
 @media screen and (min-width: 1024px) {
   .header {
     max-width: 880px;
-    padding: 46px 0 39px;
   }
 }
