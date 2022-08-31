@@ -5,5 +5,12 @@
   font-weight: 500;
   font-size: 18px;
   line-height: 1.22;
+  text-align: center;
   color: #FFFFFF;
+}
+
+@media screen and (min-width: 1024px) {
+  .header__auth-email {
+    text-align: right;
+  }
 }

@@ -10,8 +10,14 @@
 @import url(./blocks/header/__logo/header__logo.css);
 @import url(./blocks/header/__auth/header__auth.css);
 @import url(./blocks/header/__auth/_type_burder/header__auth_type_burger.css);
+@import url(./blocks/header/__auth/_disabled/header__auth_disabled.css);
 @import url(./blocks/header/__auth-email/header__auth-email.css);
+@import url(./blocks/header/__auth-email/_disabled/header__auth-email_disabled.css);
 @import url(./blocks/header/__auth-link/header__auth-link.css);
+@import url(./blocks/header/__auth-link/_type_sign-out/header__auth-link_type_sign-out.css);
+@import url(./blocks/header/__button-burger/header__button-burger.css);
+@import url(./blocks/header/__button-burger/_disabled/header__button-burger_disabled.css);
+@import url(./blocks/header/__button-burger/_type_close/header__button-burger_type_close.css);
 
 @import url(./blocks/content/content.css);
 

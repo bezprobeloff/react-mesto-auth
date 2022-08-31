@@ -32,7 +32,7 @@ const App = () => {
     about: 'about',
     avatar: '',
     isLoggedIn: false,
-    userEmail: '',
+    email: '',
   });
 
   useEffect(() => {
@@ -70,6 +70,11 @@ const App = () => {
     });
   };
 
+  const onSignOut = () => {
+    localStorage.removeItem('token');
+    history.push('/sign-in');
+  };
+
   // проверяем наличие токена, если все хорошо сразу логинимся
   const auth = async (token) => {
     mestoAuth.getContent(token).then((res) => {
@@ -77,7 +82,7 @@ const App = () => {
         setCurrentUser({
           ...currentUser,
           isLoggedIn: true,
-          userEmail: res.email,
+          email: res.data.email,
         });
       }
     });
@@ -192,7 +197,7 @@ const App = () => {
   return (
     <div className='page__content'>
       <CurrentUserContext.Provider value={currentUser}>
-        <Header />
+        <Header onSignOut={onSignOut} />
         <Switch>
           <ProtectedRoute
             exact
