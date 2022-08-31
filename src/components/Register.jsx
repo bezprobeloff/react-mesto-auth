@@ -15,6 +15,7 @@ const Register = ({ onRegister }) => {
         break;
     }
   };
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
     if (!email || !password) {

@@ -60,7 +60,7 @@ const App = () => {
   const onRegister = ({ email, password }) => {
     return mestoAuth
       .register({ email, password })
-      .then((res) => console.log(res));
+      .then(() => history.push('./signin'));
   };
 
   const onLogin = ({ email, password }) => {
@@ -72,6 +72,7 @@ const App = () => {
 
   const onSignOut = () => {
     localStorage.removeItem('token');
+    setCurrentUser({ ...currentUser, isLoggedIn: false });
     history.push('/sign-in');
   };
 

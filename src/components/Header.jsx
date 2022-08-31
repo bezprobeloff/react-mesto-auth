@@ -1,10 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import logo from '../images/logo.svg';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import { useLocation, useHistory } from 'react-router-dom';
 
 const Header = ({ onSignOut }) => {
   const currentUser = useContext(CurrentUserContext);
-  const [link, setLink] = useState({ text: '', link: '' });
+  const location = useLocation();
+  const history = useHistory();
+  const [link, setLink] = useState({ text: '', path: '' });
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
 
   const classAuthBurgerDisable = !isBurgerOpen ? ' header__auth_disabled' : '';
@@ -12,6 +15,7 @@ const Header = ({ onSignOut }) => {
   const classAuthBurger = currentUser.isLoggedIn
     ? ' header__auth_type_burger'
     : '';
+
   const classAuthEmailBurger = !currentUser.isLoggedIn
     ? ' header__auth-email_disabled'
     : '';
@@ -24,8 +28,8 @@ const Header = ({ onSignOut }) => {
     ? ' header__button-burger_disabled'
     : '';
 
-  const handleSignOut = () => {
-    onSignOut();
+  const onLinkClick = () => {
+    currentUser.isLoggedIn ? onSignOut() : history.push(link.path);
   };
 
   const onButtonBurgerClick = (evt) => {
@@ -42,22 +46,22 @@ const Header = ({ onSignOut }) => {
   }, []);
 
   useEffect(() => {
-    switch (window.location.pathname) {
+    switch (location.pathname) {
       case '/sign-in':
-        setLink({ ...link, text: 'Регистрация', link: './sign-up' });
+        setLink({ ...link, text: 'Регистрация', path: './sign-up' });
         break;
       case '/sign-up':
-        setLink({ ...link, text: 'Войти', link: './sign-in' });
+        setLink({ ...link, text: 'Войти', path: './sign-in' });
         break;
       case '/':
-        setLink({ ...link, text: 'Выйти', link: './sign-in' });
+        setLink({ ...link, text: 'Выйти', path: './sign-in' });
         break;
     }
-  }, [window.location.pathname, currentUser.isLoggedIn]);
+  }, [location.pathname, currentUser.isLoggedIn]);
 
   return (
     <header className='header'>
-      <a href='./index.html' className='header__link'>
+      <a href='./' className='header__link'>
         <img src={logo} className='header__logo' alt='Лого Mesto' />
       </a>
       <div
@@ -68,7 +72,7 @@ const Header = ({ onSignOut }) => {
         </p>
         <a
           className={`header__auth-link${classAuthLinkSignOut}`}
-          onClick={handleSignOut}
+          onClick={onLinkClick}
         >
           {link.text}
         </a>
