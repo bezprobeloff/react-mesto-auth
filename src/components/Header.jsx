@@ -10,7 +10,8 @@ const Header = ({ onSignOut }) => {
   const [link, setLink] = useState({ text: '', path: '' });
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
 
-  const classAuthBurgerDisable = !isBurgerOpen ? ' header__auth_disabled' : '';
+  const classAuthBurgerDisable =
+    !isBurgerOpen && currentUser.isLoggedIn ? ' header__auth_disabled' : '';
 
   const classAuthBurger = currentUser.isLoggedIn
     ? ' header__auth_type_burger'
@@ -34,7 +35,7 @@ const Header = ({ onSignOut }) => {
 
   const onButtonBurgerClick = (evt) => {
     setIsBurgerOpen(!isBurgerOpen);
-    if (isBurgerOpen) {
+    if (!isBurgerOpen) {
       evt.target.classList.add('header__button-burger_type_close');
     } else {
       evt.target.classList.remove('header__button-burger_type_close');
