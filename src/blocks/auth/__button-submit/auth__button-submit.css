@@ -13,6 +13,7 @@
   line-height: 1.19;
   text-align: center;
   color: #000000;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 768px) {
