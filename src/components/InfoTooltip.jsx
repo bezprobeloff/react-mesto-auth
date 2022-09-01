@@ -1,9 +1,12 @@
 import React from 'react';
 
 const InfoTooltip = (props) => {
-  const { isOpen, onClose } = props;
+  const { isAccept, message, isOpen, onClose } = props;
 
   const classPopupOpened = `${isOpen ? 'popup_opened' : ''}`;
+  const classIconType = isAccept
+    ? ' popup__icon_type_accept'
+    : ' popup__icon_type_error';
   const handleOverlayClose = (evt) =>
     evt.target === evt.currentTarget && onClose();
 
@@ -17,8 +20,8 @@ const InfoTooltip = (props) => {
           aria-label='Закрыть'
         ></button>
         <div className='popup__info-container'>
-          <div className='popup__icon popup__icon_type_accept'></div>
-          <h3 className='popup__message'>Вы успешно зарегистрировались!</h3>
+          <div className={`popup__icon${classIconType}`}></div>
+          <h3 className='popup__message'>{message}</h3>
         </div>
       </div>
     </div>

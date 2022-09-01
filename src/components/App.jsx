@@ -24,6 +24,10 @@ const App = () => {
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [infoTooltipProps, setInforTooltipProps] = useState({
+    message: '',
+    accept: true,
+  });
   const [selectedCard, setSelectedCard] = useState({});
   const [cards, setCards] = useState([]);
   const history = useHistory();
@@ -60,14 +64,40 @@ const App = () => {
   const onRegister = ({ email, password }) => {
     return mestoAuth
       .register({ email, password })
-      .then(() => history.push('./signin'));
+      .then(() => {
+        setInforTooltipProps({
+          ...infoTooltipProps,
+          message: 'Вы успешно зарегистрировались!',
+          accept: true,
+        });
+        infoTooltipOpen();
+        history.push('./sign-in');
+      })
+      .catch(() => {
+        setInforTooltipProps({
+          ...infoTooltipProps,
+          message: 'Что-то пошло не так! Попробуйте ещё раз.',
+          accept: false,
+        });
+        infoTooltipOpen();
+      });
   };
 
   const onLogin = ({ email, password }) => {
-    return mestoAuth.authorize({ email, password }).then((data) => {
-      setCurrentUser({ ...currentUser, isLoggedIn: true });
-      localStorage.setItem('token', data.token);
-    });
+    return mestoAuth
+      .authorize({ email, password })
+      .then((data) => {
+        setCurrentUser({ ...currentUser, isLoggedIn: true });
+        localStorage.setItem('token', data.token);
+      })
+      .catch(() => {
+        setInforTooltipProps({
+          ...infoTooltipProps,
+          message: 'Что-то пошло не так! Попробуйте ещё раз.',
+          accept: false,
+        });
+        infoTooltipOpen();
+      });
   };
 
   const onSignOut = () => {
@@ -179,6 +209,11 @@ const App = () => {
       .finally(() => closeAllPopups());
   };
 
+  const infoTooltipOpen = () => {
+    setIsInfoTooltipOpen(true);
+    setHandleEscClosePopup();
+  };
+
   const handleEscClosePopup = (evt) => {
     if (evt.key !== 'Escape') return;
 
@@ -221,7 +256,13 @@ const App = () => {
           </Route>
         </Switch>
         <Footer />
-        <InfoTooltip isOpen={isInfoTooltipOpen} onClose={closeAllPopups} />
+        <InfoTooltip
+          isAccept={infoTooltipProps.accept}
+          message={infoTooltipProps.message}
+          infoTooltipProps={infoTooltipProps}
+          isOpen={isInfoTooltipOpen}
+          onClose={closeAllPopups}
+        />
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onUpdateUser={handleUpdateUser}
