@@ -4,22 +4,22 @@ import useInput from '../utils/hooks/useInput';
 
 const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar }) => {
   const inputAvatar = useInput({ inputValue: '' });
-  const [isFormNotValid, setIsFormNotValid] = useState(true);
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const inputAvatarClass = `popup__input popup__input_type_avatar
     ${inputAvatar.isError ? 'popup__input_type_error' : ''}`;
 
   useEffect(() => {
     inputAvatar.reset();
-    setIsFormNotValid(true);
+    setIsFormValid(false);
   }, [isOpen]);
 
   // меняем состояние кнопки сабмит
   useEffect(() => {
     if (inputAvatar.isError || inputAvatar.value === '') {
-      setIsFormNotValid(true);
+      setIsFormValid(false);
     } else {
-      setIsFormNotValid(false);
+      setIsFormValid(true);
     }
   }, [inputAvatar.value]);
 
@@ -37,7 +37,7 @@ const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar }) => {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isFormNotValid={isFormNotValid}
+      isFormValid={isFormValid}
     >
       <input
         className={inputAvatarClass}

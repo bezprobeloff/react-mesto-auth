@@ -37,7 +37,7 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isFormNotValid={inputName.isError || inputAbout.isError}
+      isFormValid={!inputName.isError && !inputAbout.isError}
     >
       <input
         className={inputNameClass}

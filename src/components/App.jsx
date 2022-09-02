@@ -10,7 +10,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
-import ConfirmPopup from './ConfirmPopup';
+import ConfirmationPopup from './ConfirmationPopup';
 import Login from './Login';
 import Register from './Register';
 import InfoTooltip from './InfoTooltip';
@@ -21,7 +21,7 @@ const App = () => {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-  const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false);
+  const [isConfirmationPopupOpen, setIsConfirmationPopupOpen] = useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [infoTooltipProps, setInfoTooltipProps] = useState({
@@ -108,15 +108,18 @@ const App = () => {
 
   // проверяем наличие токена, если все хорошо сразу логинимся
   const auth = async (token) => {
-    mestoAuth.getContent(token).then((res) => {
-      if (res) {
-        setCurrentUser({
-          ...currentUser,
-          isLoggedIn: true,
-          email: res.data.email,
-        });
-      }
-    });
+    mestoAuth
+      .getContent(token)
+      .then((res) => {
+        if (res) {
+          setCurrentUser({
+            ...currentUser,
+            isLoggedIn: true,
+            email: res.data.email,
+          });
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   const setHandleEscClosePopup = () => {
@@ -143,7 +146,7 @@ const App = () => {
   };
 
   const handleDeleteCardClick = (card) => {
-    setIsConfirmPopupOpen(true);
+    setIsConfirmationPopupOpen(true);
     setSelectedCard(card);
     setHandleEscClosePopup();
   };
@@ -169,7 +172,7 @@ const App = () => {
 
   const handleCardDelete = () => {
     api
-      .removeCard(selectedCard?._id)
+      .removeCard(selectedCard._id)
       .then(() => {
         setCards((cards) =>
           cards.filter((item) => item._id !== selectedCard?._id)
@@ -224,7 +227,7 @@ const App = () => {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
-    setIsConfirmPopupOpen(false);
+    setIsConfirmationPopupOpen(false);
     setIsImagePopupOpen(false);
     setIsInfoTooltipOpen(false);
     removeHandleEscClosePopup();
@@ -247,7 +250,7 @@ const App = () => {
             onCardClick={handleCardClick}
             onCardLike={handleCardLike}
             onCardDelete={handleDeleteCardClick}
-          ></ProtectedRoute>
+          />
           <Route path='/sign-up'>
             <Register onRegister={onRegister} />
           </Route>
@@ -278,9 +281,9 @@ const App = () => {
           onAddPlace={handleAddPlace}
           onClose={closeAllPopups}
         />
-        <ConfirmPopup
-          isOpen={isConfirmPopupOpen}
-          onDeleteCard={handleCardDelete}
+        <ConfirmationPopup
+          isOpen={isConfirmationPopupOpen}
+          onSubmit={handleCardDelete}
           onClose={closeAllPopups}
         />
         <ImagePopup

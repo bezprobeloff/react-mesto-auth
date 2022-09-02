@@ -8,7 +8,7 @@ const PopupWithForm = (props) => {
     isOpen,
     onClose,
     onSubmit,
-    isFormNotValid,
+    isFormValid,
     children,
   } = props;
 
@@ -39,9 +39,9 @@ const PopupWithForm = (props) => {
           {children}
           <button
             className={`popup__button popup__button_type_submit
-              ${isFormNotValid ? 'popup__button_disabled' : ''}`}
+              ${!isFormValid ? 'popup__button_disabled' : ''}`}
             type='submit'
-            disabled={isFormNotValid}
+            disabled={!isFormValid}
           >
             {buttonText}
           </button>

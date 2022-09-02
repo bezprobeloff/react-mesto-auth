@@ -9,7 +9,7 @@ const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
     ${inputName.isError ? 'popup__input_type_error' : ''}`;
   const inputLinkClass = `popup__input popup__input_type_card-link
     ${inputLink.isError ? 'popup__input_type_error' : ''}`;
-  const [isFormNotValid, setIsFormNotValid] = useState(true);
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -21,7 +21,7 @@ const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
     // обнуляем инпуты и дизейблим сабмит по умолчанию
     inputName.reset();
     inputLink.reset();
-    setIsFormNotValid(true);
+    setIsFormValid(false);
   }, [isOpen]);
 
   // меняем состояние кнопки сабмит
@@ -32,9 +32,9 @@ const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
       inputLink.isError ||
       inputLink.value === ''
     ) {
-      setIsFormNotValid(true);
+      setIsFormValid(false);
     } else {
-      setIsFormNotValid(false);
+      setIsFormValid(true);
     }
   }, [inputName.value, inputLink.value]);
 
@@ -46,7 +46,7 @@ const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isFormNotValid={isFormNotValid}
+      isFormValid={isFormValid}
     >
       <input
         className={inputNameClass}

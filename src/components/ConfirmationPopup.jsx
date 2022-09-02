@@ -1,11 +1,11 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
-const ConfirmPopup = ({ isOpen, onClose, onDeleteCard }) => {
+const ConfirmationPopup = ({ isOpen, onClose, onSubmit }) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    onDeleteCard();
+    onSubmit();
   };
 
   return (
@@ -16,9 +16,9 @@ const ConfirmPopup = ({ isOpen, onClose, onDeleteCard }) => {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isFormNotValid={false}
+      isFormValid={true}
     />
   );
 };
 
-export default ConfirmPopup;
+export default ConfirmationPopup;
