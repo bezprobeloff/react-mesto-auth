@@ -1,10 +1,10 @@
 import React from 'react';
 
 const InfoTooltip = (props) => {
-  const { isAccept, message, isOpen, onClose } = props;
+  const { isSuccess, message, isOpen, onClose } = props;
 
   const classPopupOpened = `${isOpen ? 'popup_opened' : ''}`;
-  const classIconType = isAccept
+  const classIconType = isSuccess
     ? ' popup__icon_type_accept'
     : ' popup__icon_type_error';
   const handleOverlayClose = (evt) =>

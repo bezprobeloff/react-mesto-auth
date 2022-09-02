@@ -24,9 +24,9 @@ const App = () => {
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
-  const [infoTooltipProps, setInforTooltipProps] = useState({
+  const [infoTooltipProps, setInfoTooltipProps] = useState({
     message: '',
-    accept: true,
+    isSuccess: true,
   });
   const [selectedCard, setSelectedCard] = useState({});
   const [cards, setCards] = useState([]);
@@ -40,45 +40,45 @@ const App = () => {
   });
 
   useEffect(() => {
-    Promise.all([api.getUser(), api.getInitialCards()])
-      .then(([user, dataCards]) => {
-        setCurrentUser(user);
-        setCards(dataCards);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+    if (currentUser.isLoggedIn) {
+      Promise.all([api.getUser(), api.getInitialCards()])
+        .then(([user, dataCards]) => {
+          setCurrentUser({ ...currentUser, ...user });
+          setCards([...cards, ...dataCards]);
+        })
+        .then(() => history.push('/'))
+        .catch((err) => console.log(err));
+    }
+  }, [currentUser.isLoggedIn]);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+
     if (token) {
       auth(token);
     }
   }, [currentUser.isLoggedIn]);
 
-  useEffect(() => {
-    if (currentUser.isLoggedIn) {
-      history.push('/');
-    }
-  }, [history, currentUser.isLoggedIn]);
-
   const onRegister = ({ email, password }) => {
     return mestoAuth
       .register({ email, password })
       .then(() => {
-        setInforTooltipProps({
+        setInfoTooltipProps({
           ...infoTooltipProps,
           message: 'Вы успешно зарегистрировались!',
-          accept: true,
+          isSuccess: true,
         });
-        infoTooltipOpen();
+
         history.push('./sign-in');
       })
       .catch(() => {
-        setInforTooltipProps({
+        setInfoTooltipProps({
           ...infoTooltipProps,
           message: 'Что-то пошло не так! Попробуйте ещё раз.',
-          accept: false,
+          isSuccess: false,
         });
+      })
+      .finally(() => {
         infoTooltipOpen();
       });
   };
@@ -91,10 +91,10 @@ const App = () => {
         localStorage.setItem('token', data.token);
       })
       .catch(() => {
-        setInforTooltipProps({
+        setInfoTooltipProps({
           ...infoTooltipProps,
           message: 'Что-то пошло не так! Попробуйте ещё раз.',
-          accept: false,
+          isSuccess: false,
         });
         infoTooltipOpen();
       });
@@ -257,7 +257,7 @@ const App = () => {
         </Switch>
         <Footer />
         <InfoTooltip
-          isAccept={infoTooltipProps.accept}
+          isSuccess={infoTooltipProps.isSuccess}
           message={infoTooltipProps.message}
           infoTooltipProps={infoTooltipProps}
           isOpen={isInfoTooltipOpen}
