@@ -1,8 +1,6 @@
 import React from 'react';
 
-const InfoTooltip = (props) => {
-  const { isSuccess, message, isOpen, onClose } = props;
-
+const InfoTooltip = ({ isSuccess, message, isOpen, onClose }) => {
   const classPopupOpened = `${isOpen ? 'popup_opened' : ''}`;
   const classIconType = isSuccess
     ? ' popup__icon_type_accept'

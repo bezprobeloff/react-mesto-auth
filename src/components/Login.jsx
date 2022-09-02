@@ -21,7 +21,7 @@ const Login = ({ onLogin }) => {
       return;
     }
 
-    onLogin({ email, password }).then(() => {});
+    onLogin({ email, password });
   };
 
   return (

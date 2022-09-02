@@ -22,9 +22,7 @@ const Register = ({ onRegister }) => {
       return;
     }
 
-    onRegister({ email, password }).then(() => {
-      //history.push('./');
-    });
+    onRegister({ email, password });
   };
   return (
     <main className='content'>

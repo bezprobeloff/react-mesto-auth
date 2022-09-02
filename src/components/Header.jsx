@@ -34,7 +34,7 @@ const Header = ({ onSignOut }) => {
   };
 
   const onButtonBurgerClick = (evt) => {
-    setIsBurgerOpen(!isBurgerOpen);
+    setIsBurgerOpen((state) => !state);
     if (!isBurgerOpen) {
       evt.target.classList.add('header__button-burger_type_close');
     } else {
