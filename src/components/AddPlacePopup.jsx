@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PopupWithForm from './PopupWithForm';
 import useInput from '../utils/hooks/useInput';
 
-const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
+const AddPlacePopup = ({ name, isOpen, onAddPlace }) => {
   const inputName = useInput({ inputValue: '' });
   const inputLink = useInput({ inputValue: '' });
   const inputNameClass = `popup__input popup__input_type_card-name
@@ -42,9 +42,7 @@ const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
     <PopupWithForm
       title='Новое место'
       buttonText='Сохранить'
-      name='add-card'
-      isOpen={isOpen}
-      onClose={onClose}
+      name={name}
       onSubmit={handleSubmit}
       isFormValid={isFormValid}
     >

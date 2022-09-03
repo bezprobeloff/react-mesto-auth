@@ -2,7 +2,7 @@ import PopupWithForm from './PopupWithForm';
 import React, { useState, useEffect } from 'react';
 import useInput from '../utils/hooks/useInput';
 
-const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar }) => {
+const EditAvatarPopup = ({ name, isOpen, onUpdateAvatar }) => {
   const inputAvatar = useInput({ inputValue: '' });
   const [isFormValid, setIsFormValid] = useState(false);
 
@@ -33,9 +33,7 @@ const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar }) => {
     <PopupWithForm
       title='Обновить аватар'
       buttonText='Сохранить'
-      name='update-avatar'
-      isOpen={isOpen}
-      onClose={onClose}
+      name={name}
       onSubmit={handleSubmit}
       isFormValid={isFormValid}
     >

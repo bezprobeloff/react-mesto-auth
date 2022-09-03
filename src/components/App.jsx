@@ -16,6 +16,7 @@ import Register from './Register';
 import InfoTooltip from './InfoTooltip';
 import ProtectedRoute from './ProtectedRoute';
 import { useHistory } from 'react-router-dom';
+import Popup from './Popup';
 
 const App = () => {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -122,39 +123,26 @@ const App = () => {
       .catch((err) => console.log(err));
   };
 
-  const setHandleEscClosePopup = () => {
-    document.addEventListener('keydown', handleEscClosePopup);
-  };
-
-  const removeHandleEscClosePopup = () => {
-    document.addEventListener('keydown', handleEscClosePopup);
-  };
-
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
-    setHandleEscClosePopup();
   };
 
   const handleEditProfileClick = () => {
     setIsEditProfilePopupOpen(true);
-    setHandleEscClosePopup();
   };
 
   const handleAddPlaceClick = () => {
     setIsAddPlacePopupOpen(true);
-    setHandleEscClosePopup();
   };
 
   const handleDeleteCardClick = (card) => {
     setIsConfirmationPopupOpen(true);
     setSelectedCard(card);
-    setHandleEscClosePopup();
   };
 
   const handleCardClick = (card) => {
     setIsImagePopupOpen(true);
     setSelectedCard(card);
-    setHandleEscClosePopup();
   };
 
   const handleCardLike = (card) => {
@@ -214,13 +202,6 @@ const App = () => {
 
   const infoTooltipOpen = () => {
     setIsInfoTooltipOpen(true);
-    setHandleEscClosePopup();
-  };
-
-  const handleEscClosePopup = (evt) => {
-    if (evt.key !== 'Escape') return;
-
-    closeAllPopups();
   };
 
   const closeAllPopups = () => {
@@ -230,7 +211,6 @@ const App = () => {
     setIsConfirmationPopupOpen(false);
     setIsImagePopupOpen(false);
     setIsInfoTooltipOpen(false);
-    removeHandleEscClosePopup();
   };
 
   return (
@@ -259,34 +239,45 @@ const App = () => {
           </Route>
         </Switch>
         <Footer />
-        <InfoTooltip
+        <Popup
+          component={InfoTooltip}
+          name='infoTooltip'
           isSuccess={infoTooltipProps.isSuccess}
           message={infoTooltipProps.message}
-          infoTooltipProps={infoTooltipProps}
           isOpen={isInfoTooltipOpen}
           onClose={closeAllPopups}
         />
-        <EditProfilePopup
+        <Popup
+          component={EditProfilePopup}
+          name='edit-profile'
           isOpen={isEditProfilePopupOpen}
           onUpdateUser={handleUpdateUser}
           onClose={closeAllPopups}
         />
-        <EditAvatarPopup
+        <Popup
+          component={EditAvatarPopup}
+          name='update-avatar'
           isOpen={isEditAvatarPopupOpen}
           onUpdateAvatar={handleUpdateAvatar}
           onClose={closeAllPopups}
         />
-        <AddPlacePopup
+        <Popup
+          component={AddPlacePopup}
+          name='add-card'
           isOpen={isAddPlacePopupOpen}
           onAddPlace={handleAddPlace}
           onClose={closeAllPopups}
         />
-        <ConfirmationPopup
+        <Popup
+          component={ConfirmationPopup}
+          name='confirmation'
           isOpen={isConfirmationPopupOpen}
           onSubmit={handleCardDelete}
           onClose={closeAllPopups}
         />
-        <ImagePopup
+        <Popup
+          component={ImagePopup}
+          name='view-image'
           card={selectedCard}
           isOpen={isImagePopupOpen}
           onClose={closeAllPopups}

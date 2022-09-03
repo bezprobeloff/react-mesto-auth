@@ -3,7 +3,7 @@ import React, { useEffect, useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import useInput from '../utils/hooks/useInput';
 
-const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
+const EditProfilePopup = ({ name, isOpen, onUpdateUser }) => {
   const currentUser = useContext(CurrentUserContext);
   const inputName = useInput({ inputValue: currentUser.name });
   const inputAbout = useInput({ inputValue: currentUser.about });
@@ -33,9 +33,7 @@ const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
     <PopupWithForm
       title='Редактировать профиль'
       buttonText='Сохранить'
-      name='edit-profile'
-      isOpen={isOpen}
-      onClose={onClose}
+      name={name}
       onSubmit={handleSubmit}
       isFormValid={!inputName.isError && !inputAbout.isError}
     >
