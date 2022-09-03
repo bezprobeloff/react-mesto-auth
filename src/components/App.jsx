@@ -32,6 +32,7 @@ const App = () => {
   const [selectedCard, setSelectedCard] = useState({});
   const [cards, setCards] = useState([]);
   const history = useHistory();
+  const [isTokenChecked, setIsTokenChecked] = useState(false);
   const [currentUser, setCurrentUser] = useState({
     name: 'user',
     about: 'about',
@@ -56,7 +57,7 @@ const App = () => {
     const token = localStorage.getItem('token');
 
     if (token) {
-      auth(token);
+      tokenCheck(token);
     }
   }, [currentUser.isLoggedIn]);
 
@@ -108,7 +109,7 @@ const App = () => {
   };
 
   // проверяем наличие токена, если все хорошо сразу логинимся
-  const auth = async (token) => {
+  const tokenCheck = async (token) => {
     mestoAuth
       .getContent(token)
       .then((res) => {
@@ -120,7 +121,8 @@ const App = () => {
           });
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setIsTokenChecked(true));
   };
 
   const handleEditAvatarClick = () => {
@@ -223,6 +225,7 @@ const App = () => {
             path='/'
             component={Main}
             isLoggedIn={currentUser.isLoggedIn}
+            isTokenChecked={isTokenChecked}
             cards={cards}
             onEditProfile={handleEditProfileClick}
             onAddPlace={handleAddPlaceClick}
