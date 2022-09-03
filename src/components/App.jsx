@@ -73,10 +73,11 @@ const App = () => {
 
         history.push('./sign-in');
       })
-      .catch(() => {
+      .catch((res) => res.json())
+      .then((data) => {
         setInfoTooltipProps({
           ...infoTooltipProps,
-          message: 'Что-то пошло не так! Попробуйте ещё раз.',
+          message: data.error ?? 'Что-то пошло не так! Попробуйте ещё раз.',
           isSuccess: false,
         });
       })
@@ -92,10 +93,11 @@ const App = () => {
         setCurrentUser({ ...currentUser, isLoggedIn: true });
         localStorage.setItem('token', data.token);
       })
-      .catch(() => {
+      .catch((res) => res.json())
+      .then((data) => {
         setInfoTooltipProps({
           ...infoTooltipProps,
-          message: 'Что-то пошло не так! Попробуйте ещё раз.',
+          message: data.message ?? 'Что-то пошло не так! Попробуйте ещё раз.',
           isSuccess: false,
         });
         infoTooltipOpen();
@@ -121,7 +123,7 @@ const App = () => {
           });
         }
       })
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(err.status))
       .finally(() => setIsTokenChecked(true));
   };
 
