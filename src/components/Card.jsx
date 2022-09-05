@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import '../scss/card.scss';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 const Card = ({ card, onCardClick, onCardLike, onCardDelete }) => {

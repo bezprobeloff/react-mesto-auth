@@ -1,5 +1,8 @@
 import React, { useContext } from 'react';
 import Card from './Card';
+import '../scss/content.scss';
+import '../scss/profile.scss';
+import '../scss/cards.scss';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 const Main = (props) => {

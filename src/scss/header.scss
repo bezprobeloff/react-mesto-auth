@@ -1,0 +1,152 @@
+.header {
+  width: 100%;
+  padding: 0;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  &__link {
+    display: flex;
+    padding: 28px 27px 31px;
+    transition: opacity 1s;
+
+    &:hover {
+      opacity: .6;
+    }
+  }
+
+  &__logo {
+    width: 104px;
+    height: 25px;
+    object-fit: contain;
+  }
+
+  &__auth {
+    display: grid;
+    padding-right: 27px;
+    box-sizing: border-box;
+    column-gap: 24px;
+    justify-self: end;
+    align-self: center;
+
+    &-email {
+      margin: 0;
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 1.22;
+      text-align: center;
+      color: #FFFFFF;
+
+      &_disabled {
+        display: none;
+      }
+    }
+
+    &-link {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 1.22;
+      text-align: center;
+      color: #fff;
+      cursor: pointer;
+
+      &_type_sign-out {
+        color: #A9A9A9;
+      }
+    }
+  }
+
+  &__button-burger {
+    width: 24px;
+    height: 21px;
+    padding: 0;
+    margin-right: 27px;
+    align-self: center;
+    justify-self: end;
+    background-image: url(../images/icon-burger.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: transparent;
+    border: none;
+
+    &_disabled {
+      display: none;
+    }
+
+    &_type_close {
+      width: 20px;
+      height: 20px;
+      background-image: url(../images/icone-close.svg);
+    }
+  }
+}
+
+@media screen and (min-width: 320px) {
+  .header {
+    border-bottom: 1px solid rgba(84, 84, 84, .7);
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .header {
+    &__logo {
+      width: 142px;
+      height: 33px;
+    }
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .header {
+    &__auth {
+      &_type_burger {
+        width: 100%;
+        padding: 40px 0;
+        order: -1;
+        grid-column: 1 / 3;
+        row-gap: 18px;
+        justify-content: center;
+        border-bottom: 1px solid rgba(84, 84, 84, .7);
+      }
+
+      &_disabled {
+        display: none;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .header {
+    max-width: 880px;
+
+    &__link {
+      padding: 46px 0 39px;
+    }
+
+    &__auth {
+      padding: 0;
+      grid-template-columns: repeat(1, auto);
+
+      &_type_burger {
+        grid-template-columns: repeat(2, auto);
+      }
+
+      &-email {
+        text-align: right;
+      }
+
+      &-link {
+        text-align: right;
+      }
+    }
+
+    &__button-burger {
+      display: none;
+    }
+  }
+}

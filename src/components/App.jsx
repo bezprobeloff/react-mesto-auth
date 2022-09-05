@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import '../scss/page.scss';
 import { Route, Switch } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';

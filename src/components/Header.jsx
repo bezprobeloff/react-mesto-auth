@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import logo from '../images/logo.svg';
+import '../scss/header.scss';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import { useLocation, useHistory } from 'react-router-dom';
 

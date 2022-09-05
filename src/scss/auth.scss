@@ -1,0 +1,114 @@
+.auth {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 30px;
+    box-sizing: border-box;
+  }
+
+  &__title {
+    margin: 0;
+    padding: 40px 0 33px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 20px;
+    line-height: 1.2;
+    text-align: center;
+    color: #FFFFFF;
+    box-sizing: border-box;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 8px 0;
+    margin-bottom: 20px;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    border-bottom: 2px solid #CCCCCC;
+    outline: none;
+    box-sizing: border-box;
+    background-color: transparent;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.21;
+    color: #FFFFFF;
+
+    &::placeholder {
+      color: #CCCCCC;
+    }
+  }
+
+  &__button-submit {
+    width: 100%;
+    margin-top: 154px;
+    padding: 13px 0;
+    min-height: 46px;
+    border: none;
+    background: #FFFFFF;
+    border-radius: 2px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.19;
+    text-align: center;
+    color: #000000;
+    cursor: pointer;
+  }
+
+  &__link {
+    padding-top: 20px;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #FFFFFF;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .auth {
+    width: 880px;
+
+    &__form {
+      padding: 0;
+      width: 358px;
+    }
+
+    &__title {
+      padding: 60px 0 43px;
+      font-size: 24px;
+    line-height: 1.21;
+    }
+
+    &__button-submit {
+      margin-top: 200px;
+      padding: 14px 0;
+      font-size: 18px;
+      line-height: 1.22;
+    }
+
+    &__link {
+      padding-top: 15px;
+    }
+  }
+}

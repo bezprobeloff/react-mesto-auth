@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import '../scss/popup.scss';
 
 const Popup = ({ name, isOpen, onClose, component: Component, ...props }) => {
   const classPopupOpened = `${isOpen ? 'popup_opened' : ''}`;
