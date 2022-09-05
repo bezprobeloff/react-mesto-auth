@@ -5,7 +5,7 @@ const checkResponse = (res) => {
     return res.json();
   }
 
-  return Promise.reject(res);
+  return Promise.reject(res.json());
 };
 
 export const register = ({ email, password }) => {

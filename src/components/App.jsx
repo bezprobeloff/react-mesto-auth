@@ -73,14 +73,15 @@ const App = () => {
 
         history.push('./sign-in');
       })
-      .catch((res) => res.json())
-      .then((data) => {
-        setInfoTooltipProps({
-          ...infoTooltipProps,
-          message: data.error ?? 'Что-то пошло не так! Попробуйте ещё раз.',
-          isSuccess: false,
-        });
-      })
+      .catch((res) =>
+        res.then((data) => {
+          setInfoTooltipProps({
+            ...infoTooltipProps,
+            message: data.error ?? 'Что-то пошло не так! Попробуйте ещё раз.',
+            isSuccess: false,
+          });
+        })
+      )
       .finally(() => {
         infoTooltipOpen();
       });
@@ -93,14 +94,15 @@ const App = () => {
         setCurrentUser({ ...currentUser, isLoggedIn: true });
         localStorage.setItem('token', data.token);
       })
-      .catch((res) => res.json())
-      .then((data) => {
-        setInfoTooltipProps({
-          ...infoTooltipProps,
-          message: data.message ?? 'Что-то пошло не так! Попробуйте ещё раз.',
-          isSuccess: false,
+      .catch((res) => {
+        res.then((data) => {
+          setInfoTooltipProps({
+            ...infoTooltipProps,
+            message: data.message ?? 'Что-то пошло не так! Попробуйте ещё раз.',
+            isSuccess: false,
+          });
+          infoTooltipOpen();
         });
-        infoTooltipOpen();
       });
   };
 
@@ -123,7 +125,7 @@ const App = () => {
           });
         }
       })
-      .catch((err) => console.log(err.status))
+      .catch((err) => console.log(err))
       .finally(() => setIsTokenChecked(true));
   };
 
