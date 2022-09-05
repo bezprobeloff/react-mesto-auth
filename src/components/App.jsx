@@ -42,22 +42,24 @@ const App = () => {
   });
 
   useEffect(() => {
-    if (currentUser.isLoggedIn) {
+    if (currentUser.isLoggedIn && isTokenChecked) {
       Promise.all([api.getUser(), api.getInitialCards()])
         .then(([user, dataCards]) => {
           setCurrentUser({ ...currentUser, ...user });
-          setCards([...cards, ...dataCards]);
+          setCards([...dataCards]);
         })
         .then(() => history.push('/'))
         .catch((err) => console.log(err));
     }
-  }, [currentUser.isLoggedIn]);
+  }, [isTokenChecked, currentUser.isLoggedIn]);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
 
     if (token) {
       tokenCheck(token);
+    } else {
+      setIsTokenChecked(true);
     }
   }, [currentUser.isLoggedIn]);
 
