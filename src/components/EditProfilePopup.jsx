@@ -1,9 +1,10 @@
 import PopupWithForm from './PopupWithForm';
+import Popup from './Popup';
 import React, { useEffect, useContext } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import useInput from '../utils/hooks/useInput';
 
-const EditProfilePopup = ({ name, isOpen, onUpdateUser }) => {
+const EditProfilePopup = ({ name, isOpen, onClose, onUpdateUser }) => {
   const currentUser = useContext(CurrentUserContext);
   const inputName = useInput({ inputValue: currentUser.name });
   const inputAbout = useInput({ inputValue: currentUser.about });
@@ -30,44 +31,46 @@ const EditProfilePopup = ({ name, isOpen, onUpdateUser }) => {
   }, [currentUser, isOpen]);
 
   return (
-    <PopupWithForm
-      title='Редактировать профиль'
-      buttonText='Сохранить'
-      name={name}
-      onSubmit={handleSubmit}
-      isFormValid={!inputName.isError && !inputAbout.isError}
-    >
-      <input
-        className={inputNameClass}
-        value={inputName.value}
-        onChange={inputName.onChange}
-        type='text'
-        name='name'
-        id='user-name'
-        placeholder='Имя'
-        minLength='2'
-        maxLength='40'
-        required
-      />
-      <span className='popup__input-error popup__input-error_type_user-name'>
-        {inputName.errorMessage}
-      </span>
-      <input
-        className={inputAboutClass}
-        value={inputAbout.value}
-        onChange={inputAbout.onChange}
-        type='text'
-        name='about'
-        id='user-about'
-        placeholder='О себе'
-        minLength='2'
-        maxLength='200'
-        required
-      />
-      <span className='popup__input-error popup__input-error_type_user-job'>
-        {inputAbout.errorMessage}
-      </span>
-    </PopupWithForm>
+    <Popup name={name} isOpen={isOpen} onClose={onClose}>
+      <PopupWithForm
+        title='Редактировать профиль'
+        buttonText='Сохранить'
+        name={name}
+        onSubmit={handleSubmit}
+        isFormValid={!inputName.isError && !inputAbout.isError}
+      >
+        <input
+          className={inputNameClass}
+          value={inputName.value}
+          onChange={inputName.onChange}
+          type='text'
+          name='name'
+          id='user-name'
+          placeholder='Имя'
+          minLength='2'
+          maxLength='40'
+          required
+        />
+        <span className='popup__input-error popup__input-error_type_user-name'>
+          {inputName.errorMessage}
+        </span>
+        <input
+          className={inputAboutClass}
+          value={inputAbout.value}
+          onChange={inputAbout.onChange}
+          type='text'
+          name='about'
+          id='user-about'
+          placeholder='О себе'
+          minLength='2'
+          maxLength='200'
+          required
+        />
+        <span className='popup__input-error popup__input-error_type_user-job'>
+          {inputAbout.errorMessage}
+        </span>
+      </PopupWithForm>
+    </Popup>
   );
 };
 

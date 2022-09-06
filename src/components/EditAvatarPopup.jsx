@@ -1,8 +1,9 @@
 import PopupWithForm from './PopupWithForm';
+import Popup from './Popup';
 import React, { useState, useEffect } from 'react';
 import useInput from '../utils/hooks/useInput';
 
-const EditAvatarPopup = ({ name, isOpen, onUpdateAvatar }) => {
+const EditAvatarPopup = ({ name, isOpen, onClose, onUpdateAvatar }) => {
   const inputAvatar = useInput({ inputValue: '' });
   const [isFormValid, setIsFormValid] = useState(false);
 
@@ -30,28 +31,30 @@ const EditAvatarPopup = ({ name, isOpen, onUpdateAvatar }) => {
   };
 
   return (
-    <PopupWithForm
-      title='Обновить аватар'
-      buttonText='Сохранить'
-      name={name}
-      onSubmit={handleSubmit}
-      isFormValid={isFormValid}
-    >
-      <input
-        className={inputAvatarClass}
-        type='url'
-        name='avatar'
-        value={inputAvatar.value}
-        onChange={inputAvatar.onChange}
-        id='avatar'
-        placeholder='Ссылка на аватарку'
-        minLength='2'
-        required
-      />
-      <span className='popup__input-error popup__input-error_type_avatar'>
-        {inputAvatar.errorMessage}
-      </span>
-    </PopupWithForm>
+    <Popup name={name} isOpen={isOpen} onClose={onClose}>
+      <PopupWithForm
+        title='Обновить аватар'
+        buttonText='Сохранить'
+        name={name}
+        onSubmit={handleSubmit}
+        isFormValid={isFormValid}
+      >
+        <input
+          className={inputAvatarClass}
+          type='url'
+          name='avatar'
+          value={inputAvatar.value}
+          onChange={inputAvatar.onChange}
+          id='avatar'
+          placeholder='Ссылка на аватарку'
+          minLength='2'
+          required
+        />
+        <span className='popup__input-error popup__input-error_type_avatar'>
+          {inputAvatar.errorMessage}
+        </span>
+      </PopupWithForm>
+    </Popup>
   );
 };
 

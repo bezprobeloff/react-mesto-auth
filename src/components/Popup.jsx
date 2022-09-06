@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import '../scss/popup.scss';
 
-const Popup = ({ name, isOpen, onClose, component: Component, ...props }) => {
+const Popup = ({ name, isOpen, onClose, children }) => {
   const classPopupOpened = `${isOpen ? 'popup_opened' : ''}`;
   const handleOverlayClose = (evt) =>
     evt.target === evt.currentTarget && onClose();
@@ -36,7 +36,7 @@ const Popup = ({ name, isOpen, onClose, component: Component, ...props }) => {
           type='button'
           aria-label='Закрыть'
         ></button>
-        <Component {...props} />
+        {children}
       </div>
     </div>
   );

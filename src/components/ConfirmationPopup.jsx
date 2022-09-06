@@ -1,7 +1,8 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
+import Popup from './Popup';
 
-const ConfirmationPopup = ({ name, onSubmit }) => {
+const ConfirmationPopup = ({ name, isOpen, onClose, onSubmit }) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
@@ -9,13 +10,15 @@ const ConfirmationPopup = ({ name, onSubmit }) => {
   };
 
   return (
-    <PopupWithForm
-      title='Вы уверены?'
-      buttonText='Да'
-      name={name}
-      onSubmit={handleSubmit}
-      isFormValid={true}
-    />
+    <Popup name={name} isOpen={isOpen} onClose={onClose}>
+      <PopupWithForm
+        title='Вы уверены?'
+        buttonText='Да'
+        name={name}
+        onSubmit={handleSubmit}
+        isFormValid={true}
+      />
+    </Popup>
   );
 };
 
