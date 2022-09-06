@@ -54,6 +54,10 @@
       color: #fff;
       cursor: pointer;
 
+      &:hover {
+        opacity: .6;
+      }
+
       &_type_sign-out {
         color: #A9A9A9;
       }
@@ -72,6 +76,10 @@
     background-size: cover;
     background-color: transparent;
     border: none;
+
+    &:hover {
+      opacity: .6;
+    }
 
     &_disabled {
       display: none;
