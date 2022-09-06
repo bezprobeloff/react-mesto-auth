@@ -58,11 +58,11 @@ const App = () => {
     const token = localStorage.getItem('token');
 
     if (token) {
-      tokenCheck(token);
+      checkToken(token);
     } else {
       setIsTokenChecked(true);
     }
-  }, [currentUser.isLoggedIn]);
+  }, []);
 
   const onRegister = ({ email, password }) => {
     return mestoAuth
@@ -116,7 +116,7 @@ const App = () => {
   };
 
   // проверяем наличие токена, если все хорошо сразу логинимся
-  const tokenCheck = async (token) => {
+  const checkToken = async (token) => {
     mestoAuth
       .getContent(token)
       .then((res) => {
