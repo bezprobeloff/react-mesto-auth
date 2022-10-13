@@ -123,7 +123,7 @@ const App = () => {
           setCurrentUser({
             ...currentUser,
             isLoggedIn: true,
-            email: res.data.email,
+            email: res.email,
           });
         }
       })
@@ -154,7 +154,7 @@ const App = () => {
   };
 
   const handleCardLike = (card) => {
-    const isLiked = card.likes.some((like) => like._id === currentUser._id);
+    const isLiked = card.likes.some((like) => like === currentUser._id);
 
     api
       .changeLikeCardStatus(card._id, !isLiked)
