@@ -61,7 +61,7 @@ const App = () => {
     } else {
       setIsTokenChecked(true);
     }
-  }, []);
+  }, [currentUser.isLoggedIn]);
 
   const onRegister = ({ email, password }) => {
     return mestoAuth
@@ -93,8 +93,8 @@ const App = () => {
     return mestoAuth
       .authorize({ email, password })
       .then((data) => {
-        setCurrentUser({ ...currentUser, isLoggedIn: true });
         localStorage.setItem('token', data.token);
+        setCurrentUser({ ...currentUser, isLoggedIn: true });
       })
       .catch((res) => {
         res.then((data) => {
@@ -123,7 +123,7 @@ const App = () => {
           setCurrentUser({
             ...currentUser,
             isLoggedIn: true,
-            email: res.email,
+            ...res,
           });
         }
       })
