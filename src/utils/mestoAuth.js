@@ -1,4 +1,4 @@
-const BASE_URL = 'https://api.mesto.bezprobeloff.nomoredomains.icu';
+import { BASE_URL } from './constants';
 
 const checkResponse = (res) => {
   if (res.ok) {
