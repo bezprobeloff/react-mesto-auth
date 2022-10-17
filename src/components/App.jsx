@@ -110,6 +110,7 @@ const App = () => {
 
   const onSignOut = () => {
     localStorage.removeItem('token');
+    setIsTokenChecked(false);
     setCurrentUser({ ...currentUser, isLoggedIn: false });
     history.push('/sign-in');
   };
